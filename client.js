@@ -2,7 +2,9 @@ $(document).ready(function () {
     $('#submit').on('click', addEmployee)
     $('#employeeList').on('click', '.delete', removeRow)
 });
+
 let monthlyTotal = 0;
+
 function addEmployee(){
     $('#employeeList').append('<li>' + 
     $('#firstInput').val() + ' ' +$('#lastInput').val() + ' ' +
@@ -22,11 +24,12 @@ function addEmployee(){
 }
 
 function addTotal(){
-    monthlyTotal = monthlyTotal + ($('#salaryInput').val() / 12);  
+    monthlyTotal = monthlyTotal + ($('#salaryInput').val() / 12);
+    if (monthlyTotal > 20000) {
+        $('#viewCosts').css('background-color', 'red');
+    }
 }
 
 function removeRow(){
-    $(this).parent().remove();
-    monthlyTotal = monthlyTotal - (this.$('#salaryInput').val()/12);
-    $('#viewCosts').append('Total Monthly: ' + monthlyTotal);
+    $(this).parent().remove();  
 }
