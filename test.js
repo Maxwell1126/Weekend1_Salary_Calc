@@ -3,6 +3,8 @@ $(document).ready(function () {
     $('#employeeList').on('click', '.delete', removeRow)
 });
 
+let employeeArray = [];
+
 class Employee {
     constructor(firstName, lastName, employeeID, jobTitle, annualSalary) {
         this.firstName = firstName;
@@ -12,9 +14,6 @@ class Employee {
         this.annualSalary = annualSalary;
     } //end constructor
 }
-
-let employeeArray = [];
-
 
 function addEmployee() {
     let firstInput = $('#firstInput').val();
@@ -47,12 +46,16 @@ function addToList() {
         monthlyCosts();
     }
 }
+
 function monthlyCosts() {
     let monthlyTotal = 0;
     for (employee of employeeArray) {    
         monthlyTotal += (employee.annualSalary / 12)
         $('#viewCosts').empty();
         $('#viewCosts').append('Monthly Total: ' + (monthlyTotal));
+        if (monthlyTotal > 20000) {
+            $('#viewCosts').css('background-color', 'red');
+        }
     }  
 }
 
