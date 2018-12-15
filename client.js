@@ -12,7 +12,7 @@ function addEmployee(){
     $('#salaryInput').val() + '<button class="delete">X</li>');
 
     $('#viewCosts').empty();
-    $('#viewCosts').append('Total Monthly: ' + (monthlyTotal + 
+    $('#viewCosts').append('Monthly Total: ' + (monthlyTotal + 
     ($('#salaryInput').val()/12)).toFixed());
     addTotal();
 

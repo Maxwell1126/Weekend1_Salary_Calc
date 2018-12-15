@@ -14,7 +14,7 @@ class Employee {
 }
 
 let employeeArray = [];
-let monthlyCost = 0;
+
 
 function addEmployee() {
     let firstInput = $('#firstInput').val();
@@ -48,25 +48,14 @@ function addToList() {
     }
 }
 function monthlyCosts() {
+    let monthlyTotal = 0;
     for (employee of employeeArray) {    
-        monthlyCost += monthlyCost + (employee.annualSalary / 12);
-        console.log('Cost '+monthlyCost);
-        console.log('year '+employee.annualSalary);
-        console.log('Month '+employee.annualSalary/12);
-        
+        monthlyTotal += (employee.annualSalary / 12)
         $('#viewCosts').empty();
-        $('#viewCosts').append('Total Monthly: ' + (monthlyCost));
-          //return monthlyCost;
+        $('#viewCosts').append('Monthly Total: ' + (monthlyTotal));
     }  
 }
 
 function removeRow() {
-    employeeArray.splice($(this).parent())
     $(this).parent().remove();
 }
-
-// function addTotal() {
-//     $('#viewCosts').empty();
-//     $('#viewCosts').append('Total Monthly: ' + (monthlyCost +
-//         ($('#salaryInput').val() / 12)).toFixed());
-// }
