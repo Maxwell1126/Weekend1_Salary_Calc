@@ -50,7 +50,7 @@ function addToList() {
     for (employee of employeeArray) {
         employeeInfo.append('<li>' + employee.firstName +
             ' ' + employee.lastName + ' ' + employee.employeeID +
-            ' ' + employee.jobTitle + ' ' + employee.annualSalary
+            ' ' + employee.jobTitle + ' $' + (employee.annualSalary + ' ')
             + '<button class="delete">X</li>')
         monthlyCosts();
     }
@@ -61,7 +61,7 @@ function monthlyCosts() {
     for (employee of employeeArray) {    
         monthlyTotal += (employee.annualSalary / 12)
         $('#viewCosts').empty();
-        $('#viewCosts').append('Monthly Total: ' + (monthlyTotal));
+        $('#viewCosts').append('Monthly Total: $' + (monthlyTotal.toFixed()));
         if (monthlyTotal > 20000) {
             $('#viewCosts').css('background-color', 'red');
         }
