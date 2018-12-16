@@ -31,5 +31,8 @@ function addTotal(){
 }
 
 function removeRow(){
-    $(this).parent().remove();  
+    $(this).parent().remove();
+    $(this).removeData();
+    
+      
 }

@@ -21,7 +21,16 @@ function addEmployee() {
     let idInput = $('#idInput').val();
     let titleInput = $('#titleInput').val();
     let salaryInput = $('#salaryInput').val();
-    newEmployee(firstInput, lastInput, idInput, titleInput, salaryInput);
+    let validationStatus = $('#validationDiv');
+    validationStatus.empty();
+    if ($('#firstInput').val() != '' && $('#lastInput').val() != '' &&
+        $('#idInput').val() != '' && $('#titleInput').val() != '' &&
+        $('#salaryInput').val() != '') {
+            newEmployee(firstInput, lastInput, idInput, titleInput, salaryInput)
+    }
+    else {
+        validationStatus.append('*All fields must be filled.*');
+    }
     $('#firstInput').val('');
     $('#lastInput').val('');
     $('#idInput').val('');
@@ -56,7 +65,7 @@ function monthlyCosts() {
         if (monthlyTotal > 20000) {
             $('#viewCosts').css('background-color', 'red');
         }
-    }  
+    } 
 }
 
 function removeRow() {
