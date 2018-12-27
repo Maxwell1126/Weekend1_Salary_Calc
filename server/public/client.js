@@ -15,19 +15,23 @@ function getList() {
             employeeInfo.append(`<li> ${employee.firstName} ${employee.lastName}
         ${employee.employeeID} ${employee.jobTitle} ${'$' + employee.annualSalary}
         <button class="delete">X</li>`)
-            monthlyCosts();
+        }
+        $('#viewCosts').empty();
+        $('#viewCosts').append(`Monthly Total: 
+        ${'$' + employees[employees.length - 1].monthlyTotal.toFixed()}`);
+        if (employees[employees.length - 1].monthlyTotal > 20000) {
+            $('#viewCosts').css('background-color', 'red');
         }
     }) 
 }
-// sends input info to newEmployee function. Validates that fields are filled.
-//empties input fields once click happens.
+
 function addEmployee() {
     let employee = {
-        firstInput: $('#firstInput').val(),
-        lastInput: $('#lastInput').val(),
-        idInput: $('#idInput').val(),
-        titleInput: $('#titleInput').val(),
-        salaryInput: $('#salaryInput').val()
+        firstName: $('#firstInput').val(),
+        lastName: $('#lastInput').val(),
+        employeeID: $('#idInput').val(),
+        jobTitle: $('#titleInput').val(),
+        annualSalary: $('#salaryInput').val()
     }
     $.ajax({
         method: 'POST',
@@ -36,23 +40,7 @@ function addEmployee() {
     }).then(function(response){
         getList();
     })
-    // let validationStatus = $('#validationDiv');
-    // validationStatus.empty();
-    // if ($('#firstInput').val() != '' && $('#lastInput').val() != '' &&
-    //     $('#idInput').val() != '' && $('#titleInput').val() != '' &&
-    //     $('#salaryInput').val() != '') {
-    //     newEmployee(firstInput, lastInput, idInput, titleInput, salaryInput)
-    // }
-    // else {
-    //     validationStatus.append('*All fields must be filled.*');
-    // }
-    // $('input').val('');
 }
-// creates new employee objects and pushes to array.
-// calls addToList function.
-
-//appends indexes of the array to an unordered list with a delete button.
-//calls monthlyCost function.
 
 //removes a line item from the DOM.
 function removeRow() {

@@ -1,37 +1,30 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 5000;
 app.use(express.static('server/public'));
 app.listen(PORT, () => {
     console.log('listening on: ', PORT);   
 });
 let employeeArray = [];
+let totalArray = [];
 
-class Employee {
-    constructor(firstName, lastName, employeeID, jobTitle, annualSalary) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.employeeID = employeeID;
-        this.jobTitle = jobTitle;
-        this.annualSalary = annualSalary;
-    } //end constructor
-}
+app.get('/employee-list', (req,res) =>{
+    res.send(employeeArray);
+});
 
-function newEmployee(firstName, lastName, employeeID, jobTitle, annualSalary) {
-    employeeArray.push(new Employee(firstName, lastName, employeeID,
-        jobTitle, annualSalary));
-    addToList();
-}
-
-//calculates monthly total of all indexes in the array.
-function monthlyCosts() {
+app.post('/employee-list', (req,res) =>{
+    employee = req.body;
+    employee.employeeID = parseFloat(employee.employeeID);
+    employee.annualSalary = parseFloat(employee.annualSalary);
+    totalArray.push(employee.annualSalary); 
     let monthlyTotal = 0;
-    for (employee of employeeArray) {
-        monthlyTotal += (employee.annualSalary / 12)
-        $('#viewCosts').empty();
-        $('#viewCosts').append('Monthly Total: $' + monthlyTotal.toFixed());
-        if (monthlyTotal > 20000) {
-            $('#viewCosts').css('background-color', 'red');
-        }
+    for (salary of totalArray) {
+        monthlyTotal += (salary / 12)
     }
-}
+    employee.monthlyTotal = monthlyTotal;
+    employee.monthlyTotal = parseFloat(employee.monthlyTotal)
+    employeeArray.push(employee);
+    res.sendStatus(201);
+});
